@@ -6,108 +6,44 @@ var $pgn = $('#pgn')
 board = Chessboard('analysisboard', config)
 updateStatusAll()
 
-function updateStatusAll() {
-  var status = ''
-
-  var moveColor = 'White'
-  if (game.turn() === 'b') {
-    moveColor = 'Black'
-  }
-
-  if (game.in_checkmate()) {
-    status = 'Game over, ' + moveColor + ' is in checkmate.'
-  }
-
-  else if (game.in_draw()) {
-    status = 'Game over, drawn position'
-  }
-
-  else {
-    status = moveColor + ' to move'
-
-    if (game.in_check()) {
-      status += ', ' + moveColor + ' is in check'
-    }
-  }
-
-  board.position(game.fen());
-  $status.html(status)
-  $fen.html(game.fen())
-  $pgn.html(game.pgn())
-}
-
-function updateStatusNoPGN(status) {
-  board.position(game.fen());
-  $status.html(status)
-  $fen.html(game.fen())
-}
-
 var config = {
   position: 'start',
 }
 
-let currentMove = 0;
-let gamePGN = '';
-let moveCount = [];
+let moveCount = 0
+let currentMove = 0
+let gamePGN = []
+let storePGN = ''
+
+function nextMove() {
+  let newPGN = gamePGN.slice(0, currentMove).join(' ')     
+  game.load_pgn(newPGN)
+  updateStatusNoPGN()
+}
 
 const importField = document.getElementById("importpgn");
 const importButton = document.getElementById("importpgnsubmit");
 
 importButton.addEventListener("click", function () {
   game.load_pgn(importField.value);
-  gamePGN = importField.value;
-  pgnNoNumbers = gamePGN.replace(/\d+\.\s+/g, '').split(/\s+/).filter(move => move.trim() !== '');
-  moveCount = pgnNoNumbers.length
-  currentMove = pgnNoNumbers.length;
-  updateStatusAll();
+  importPGN = importField.value;
+  gamePGN = importPGN.replace(/\d+\.\s+/g, '').split(/\s+/).filter(move => move.trim() !== ''); 
+  moveCount = gamePGN.length
+  currentMove = gamePGN.length;
+  storePGN = addMoveNumbers(gamePGN.join(' '))
+  updateStatusAll()
 })
 
-function nextMove() {
-  let newPGN = pgnNoNumbers.slice(0, currentMove).join(' ');
-  game.load_pgn(newPGN);
-  updateStatusNoPGN();
-}
-
-const leftscroll = document.getElementById("leftscroll");
-const rightscroll = document.getElementById("rightscroll");
-
-leftscroll.addEventListener('click', function () {
-  if (currentMove > 0) {
-    currentMove--;
-    nextMove();
-  };
-});
-
-rightscroll.addEventListener('click', function () {
-  if (currentMove < moveCount) {
-    currentMove++;
-    nextMove();
+function addMoveNumbers(gameString) {
+  const moves = gameString.split(' ');
+  let numberedMoves = '';
+  for (let i = 0; i < moves.length; i += 2) {
+      const moveNumber = Math.floor(i / 2) + 1;
+      numberedMoves += moveNumber + '. ' + moves[i] + ' ' + moves[i + 1] + ' ';
   }
-  console.log(`Game Move Count: ${currentMove}`);
-});
-
-document.addEventListener('keydown', function (event) {
-  if (event.key === 'ArrowLeft') {
-    if (currentMove > 0) {
-      currentMove--;
-      nextMove();
-    };
-
-  } else if (event.key === 'ArrowRight') {
-    if (currentMove < moveCount) {
-      currentMove++;
-      nextMove();
-    }
-  }
-  console.log(`Game Move Count: ${currentMove}`);
-});
-
-function flipBoard() {
-  board.flip();
+  numberedMoves = numberedMoves.trim();
+  return numberedMoves;
 }
-
-const flipboard = document.getElementById("flipboard");
-flipboard.addEventListener("click", () => flipBoard());
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -121,12 +57,10 @@ async function sendDataToServer(endpoint) {
           'X-CSRF-TOKEN': csrfToken  
         },
         body: JSON.stringify({ 
-          "pgn": gamePGN,
-          "user_id": 1,
+          "pgn": storePGN,
           "whiteplayer": 'Carlsen, Magnus',
           "blackplayer": 'Nakamura, Hikaru',
           "result": 'unknown'
-
         })
       });
 

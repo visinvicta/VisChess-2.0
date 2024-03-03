@@ -33,6 +33,7 @@
     </div>
 </div>
 
+<script src="{{ asset('js/chessfunctions.js') }}"></script>
 <script src="{{ asset('js/analysis.js') }}"></script>
 
 @endsection

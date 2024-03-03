@@ -22,4 +22,16 @@ class CommentController extends Controller
 
         return response()->json(['message' => 'Comment created successfully'], 201);
     }
+
+    public function destroy($id) {
+        try {
+            $comment = Comment::findOrFail($id);
+            $comment->delete();
+            $message = 'Comment deleted successfully';
+            return response()->json(['message' => $message]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Comment not found'], 404);
+        }
+    }
+    
 }

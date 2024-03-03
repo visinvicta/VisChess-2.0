@@ -5,9 +5,11 @@
     <div class="main">
         <div class="header">
             <h1>Study</h1>
-            <h2>{{ $study->name }}</h2>
+            <div class="study-title">
+                <h2>{{ $study->name }}</h2>
+            </div>
         </div>
-        <!-- Button to trigger the modal -->
+       
         <a href="#" class="btn btn-color-1 btn-study btn-study-create" data-toggle="modal" data-target="#createChapterModal">Chapter +</a>
 
         <div class="study-container">
@@ -23,39 +25,59 @@
             <div class="main-content">
                 <div class="study-board">
                     <div class="study-chessboard">
-                        <div id="studyboard" style="width: 500px"></div>
+                        <div id="studyboard" style="width: 600px"></div>
                         <div class="study-btn-container">
                             <button id="leftscroll" class="btn btn-color-1"><-</button>
                                     <button id="rightscroll" class="btn btn-color-2">-></button>
                                     <button id="flipboard" class="btn btn-color-5">Flip</button>
+                                    <button id="toggle-pgn-btn" class="btn btn-color-5">PGN</button>
+                                    <button id="toggle-comments-btn" class="btn btn-color-5">Comments</button>
                         </div>
-                        <label>PGN:</label>
-                        <div class="comment studypgn" id="pgn" type="text"></div>
-                        <label>Comment:</label>
-                        <div class="comment" id="comment" type="text">
-                            @foreach ($comments as $comment)
-                            <div class="move-{{ $comment->move_number }} chapter-{{ $comment->chapter_id }} comment-item" style="display: none;">{{ $comment->comment }}</div>
-                            @endforeach
+                        <div class="toggle-pgn">
+                            <label>PGN:</label>
+                            <div class="comment studypgn" id="pgn" type="text">
+                            </div>
                         </div>
-                        <button id="addcomment" class="btn btn-color-5">Add comment</button>
+                        <div class="toggle-comments">
+                            <label>Comments:</label>
+                            <div class="comment" id="comment" type="text">
+                                @foreach ($comments as $comment)
+                                <div class="move-{{ $comment->move_number }} chapter-{{ $comment->chapter_id }} comment-item" style="display: none;">
+                                    {{ $comment->comment }}
+                                    <a href="#" class="btn-delete-comment btn btn-color-4" data-comment-id="{{ $comment->id }}">Delete</a>
+                                </div>
+                                @endforeach
+                            </div>
+                            <button id="addcomment" class="btn btn-color-5">Add comment</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="moves-table-container">
-                <table class="moves-table">
-                    <thead>
-                        <tr>
-                            <th>Move</th>
-                            <th>White</th>
-                            <th>Black</th>
-                        </tr>
-                    </thead>
-                    <tbody class="moves-table-body" id="moves-table-body">
-                        <!-- Move rows will be dynamically added here -->
-                    </tbody>
-                </table>
+            <div class="game-table">
+                <div class="game-headers">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Move</th>
+                                <th>White</th>
+                                <th>Black</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="game-moves">
+                    <div class="moves-table-container">
+                        <table class="moves-table">
+                            <tbody class="moves-table-body" id="moves-table-body">
+                                <!-- Move rows will be dynamically added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -132,7 +154,9 @@
 
 
     <footer>
-        <script type="module" src="{{ asset('/js/study.js') }}"></script>
+        <script src="{{ asset('/js/chessfunctions.js') }}"></script>
+        <script src="{{ asset('/js/study.js') }}"></script>
+        <script src="{{ asset('/js/deletecomment.js') }}"></script>
         <script src="{{ asset('/js/studyChapterModal.js') }}"></script>
         <script src="{{ asset('/js/studyCommentModal.js') }}"></script>
     </footer>

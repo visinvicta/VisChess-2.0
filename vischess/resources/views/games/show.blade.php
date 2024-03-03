@@ -32,6 +32,7 @@
 </div>
 
 <footer>
+<script src="{{ asset('js/chessfunctions.js') }}"></script>
 <script src="{{ asset('/js/game.js') }}"></script>
    
 </footer>

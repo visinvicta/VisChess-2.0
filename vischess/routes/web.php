@@ -65,6 +65,9 @@ Route::middleware('web')->group(function () {
 
     //Comments
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+
 
 
 

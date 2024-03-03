@@ -1,6 +1,7 @@
 :root {
-    --page-bg-color: #1a1919;
+    --page-bg-color: #171512;
     --page-bg-color2: #292727;
+    --page-bg-color3: #222222;
     --container-bg-color: #13315C;
     --header-bg-color: #134074;
     --content-bg-color: #8DA9C4;
@@ -13,6 +14,11 @@
     --button-hover-color: #0056b3;
 
 
+    --page-color-1: #333333;
+    --page-color-2: #2C2C2C;
+    --page-color-3: #262626;
+    --page-color-4: #1F1F1F;
+    --page-color-5: #1A1A1A;
 }
 
 body {
@@ -24,7 +30,7 @@ body {
     background-color: var(--page-bg-color);
     border-radius: 5px;
     padding: 5px;
-    width: 1200px;
+    width: 1400px;
     margin-left: auto;
     margin-right: auto;
     color: var(--page-text-color);
@@ -67,7 +73,7 @@ body {
 
 .content {
     margin: 10px 0px 10px 0px;
-    background-color: var(--page-bg-color2);
+    background-color: var(--page-bg-color);
     border-radius: 5px;
     height: 100vh;
     padding: 2px;
@@ -78,7 +84,7 @@ body {
     margin: 10px 0px 10px 0px;
     border-radius: 5px;
     padding: 5px;
-    background-color: var(--page-bg-color2);
+    background-color: var(--page-bg-color);
     color: var(--page-text-color);
 
 
@@ -94,6 +100,7 @@ body {
 
 .header {
     text-align: center;
+    margin: 0px;
 }
 
 .footer {
@@ -111,10 +118,13 @@ h3 {
 
 .dbgames {
     padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    grid-gap: 20px;
 }
 
 .gamecontainer {
-    background-color: var(--page-bg-color);
+    background-color: var(--page-color-4);
     display: flex;
     margin: 5px;
 }
@@ -146,7 +156,7 @@ h3 {
 }
 
 .gamepgn {
-    width: 700px;
+    
     Height: 110px;
     padding: 5px;
     overflow: hidden;
@@ -173,13 +183,16 @@ h3 {
     text-decoration: none;
     border-radius: 5px;
     font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
     font-size: 16px;
     border: none; 
     margin: 5px;
+    
 }
 
 .btn {
     cursor: pointer;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .btn.button {
@@ -213,6 +226,13 @@ h3 {
     margin-left: 21px;
 }
 
+.btn-delete-comment {
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+
+}
+
 .btn-color-1 {
     background-color: var(--chessboard-bg-color1);
 }
@@ -228,6 +248,7 @@ h3 {
 .btn-color-5 {
     background-color: var(--button-hover-color);
 }
+
 
 
 
@@ -342,7 +363,7 @@ label {
 }
 
 .study {
-    background-color: var(--page-bg-color);
+    background-color: var(--page-color-4);
     border-radius: 5px;
     padding: 12px;
     height: 150px;
@@ -383,25 +404,32 @@ label {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    
     margin-top: 20px;
+    background-color: var(--page-bg-color);
 }
+.hidden {
+    display: none;
+}
+
 
 .sidebar {
     flex: 0 0 200px;
-    min-height: 780px;
+    min-height: 600px;
+    min-width: 280px;
     /* Fixed width for the sidebar */
-    background-color: var(--page-bg-color);
+    background-color: var(--page-color-4);
     padding: 20px;
     border-radius: 5px;
     margin-left: 20px;
-    margin-right: auto;
+    margin-right: 50px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .main-content {
     flex: 1;
     /* Take up remaining space */
-    margin-left: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
     max-width: 550px;
     /* Add some space between sidebar and main content */
 }
@@ -437,7 +465,8 @@ label {
     font-family: 'Courier New', Courier, monospace;
     color: var(--page-text-color);
     overflow-wrap: break-word;
-    width: 500px;
+    width: 600px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
     box-sizing: border-box;
 
 }
@@ -483,8 +512,6 @@ label {
     overflow-wrap: break-word;
     width: 396px;
     box-sizing: border-box;
-    
-
 }
 
 .study-btn-container {
@@ -503,16 +530,23 @@ label {
 
 
 /* Table styling */
-.moves-table-container {
+
+
+.game-table {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
     margin-right: 20px;
     border-radius: 5px;
-    min-height: 820px;
-    max-height: 820px;
     margin-left: auto;
-    background-color: var(--page-bg-color);
+    background-color: var(--page-color-4);
+
+    
+}
+
+.game-moves {
     overflow: scroll;
     overflow-x: hidden; 
-    
+    min-height: 600px;
+    max-height: 600px;
 }
 
 .moves-table {
@@ -520,19 +554,21 @@ label {
     width: 100%;
     border-collapse: collapse;
     border-radius: 5px;
+    
 }
 
-.moves-table th,
-.moves-table td {
+th,
+td {
     padding: 10px;
     text-align: center;
-    width: 90px;
-    border: 1px solid var(--page-bg-color);
+    width: 85px;
 }
 
-.moves-table th {
+
+th {
     background-color: var(--header-bg-color);
     color: white;
+    
 }
 
 .tablemove:hover {
@@ -542,22 +578,23 @@ label {
 
 
 /* Customizing the scrollbar */
-.moves-table-container::-webkit-scrollbar {
+.game-moves::-webkit-scrollbar {
     width: 8px; /* Set the width of the scrollbar */
 }
 
 /* Track */
-.moves-table-container::-webkit-scrollbar-track {
-    background: var(--page-bg-color); /* Set the color of the scrollbar track */
+.game-moves::-webkit-scrollbar-track {
+    background-color: var(--page-color-2); /* Set the color of the scrollbar track */
 }
 
 /* Handle */
-.moves-table-container::-webkit-scrollbar-thumb {
-    background: #333; /* Set the color of the scrollbar handle */
+.game-moves::-webkit-scrollbar-thumb {
+    background: var(--page-color-4); /* Set the color of the scrollbar handle */
     border-radius: 10px; /* Set the border radius of the scrollbar handle */
 }
 
 /* Handle on hover */
-.moves-table-container::-webkit-scrollbar-thumb:hover {
+.game-moves::-webkit-scrollbar-thumb:hover {
     background: #555; /* Set the color of the scrollbar handle on hover */
 }
+

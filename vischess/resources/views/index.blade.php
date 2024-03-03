@@ -29,6 +29,7 @@
     @endif
 </div>
 
-<script src="{{ asset('js/boardconfig.js') }}"></script>
+<script src="{{ asset('js/chessfunctions.js') }}"></script>
+<script src="{{ asset('js/homepage.js') }}"></script>
 <script src="{{ asset('js/flashmessage.js') }}"></script>
 @endsection

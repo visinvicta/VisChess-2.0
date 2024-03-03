@@ -10,12 +10,13 @@ class GameController extends Controller
     public function store(Request $request) {
         
         $data = $request->validate([
-            'user_id' => ['required', 'integer'],
             'pgn' => ['required','string'],
             'whiteplayer' => ['required', 'string'],
             'blackplayer' => ['required', 'string'],
             'result' => ['required', 'string'],
         ]);
+
+        $data['user_id'] = auth()->id();
    
         try {
             Game::create([...$data]);
@@ -25,7 +26,7 @@ class GameController extends Controller
         return response()->json(['message' => 'Game saved successfully'], 201);
     }
 
-    public function destroy($id) {
+    public function destroy(int $id) { 
         try {
             $game = Game::findOrFail($id);
             $game->delete();
@@ -49,7 +50,9 @@ class GameController extends Controller
     }
 
     public function index() {
-        $games = Game::all();
-        return view('games/index')->with('games', $games);
+        $games = Game::with('user')->get();        
+
+        return view('games/index')
+        ->with('games', $games);
     }
 }

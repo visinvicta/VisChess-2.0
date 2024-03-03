@@ -9,12 +9,15 @@
         </div>
 
         <div class="chessboard">
+            
             <div id="analysisboard" style="width: 596px"></div>
+
             <div class="scrollbuttoncontainer">
                 <button id="leftscroll" class="btn btn-color-1 leftscroll"><-</button>
                 <button id="rightscroll" class="btn btn-color-2 rightscroll">-></button>
                 <button id="flipboard" class="btn flipboard btn-color-5">Flip</button>
             </div>
+
             <label>Status:</label>
             <div class="statuscontainer" id="status"></div>
             <label>FEN:</label>
@@ -33,6 +36,7 @@
     </div>
 </div>
 
+<script src="{{ asset('js/chessfunctions.js') }}"></script>
 <script src="{{ asset('js/game.js') }}"></script>
 
 
