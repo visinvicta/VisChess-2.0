@@ -16,9 +16,11 @@
             <div class="sidebar">
                 <h3>Chapters</h3>
                 <ul class="chapter-list">
-                    @foreach ($chapters as $chapter)
+                    @forelse ($chapters as $chapter)
                     <li id="{{ $chapter->id}}">{{ $chapter->name }}</li>
-                    @endforeach
+                    @empty
+                    <li>No chapters available</li>
+                    @endforelse
                 </ul>
             </div>
 
@@ -121,6 +123,7 @@
         </div>
     </div>
 
+    @if(isset($chapter))
 
     <div class="modal fade" id="addCommentModal" tabindex="-1" role="dialog" aria-labelledby="addCommentModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -152,6 +155,7 @@
         </div>
     </div>
 
+    @endif
 
     <footer>
         <script src="{{ asset('/js/chessfunctions.js') }}"></script>

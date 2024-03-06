@@ -2,24 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreNewGameRequest;
 use Illuminate\Http\Request;
 use App\Models\Game;
 
 class GameController extends Controller
 {
-    public function store(Request $request) {
-        
-        $data = $request->validate([
-            'pgn' => ['required','string'],
-            'whiteplayer' => ['required', 'string'],
-            'blackplayer' => ['required', 'string'],
-            'result' => ['required', 'string'],
-        ]);
-
-        $data['user_id'] = auth()->id();
-   
+    public function store(StoreNewGameRequest $request) {
+        $request['user_id'] = auth()->id();
         try {
-            Game::create([...$data]);
+            Game::create($request->all());
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }   

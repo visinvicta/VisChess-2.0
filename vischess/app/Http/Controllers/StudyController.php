@@ -6,6 +6,7 @@ use App\Models\Study;
 use Illuminate\Http\Request;
 use App\Models\Chapter;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class StudyController extends Controller
 {
