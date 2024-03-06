@@ -23,13 +23,11 @@ class StudyController extends Controller
 
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'name' => ['required', 'string'],
             'description' => ['required', 'string'],
         ]);
-
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = Auth::id();
 
         try {
             Study::create($data);

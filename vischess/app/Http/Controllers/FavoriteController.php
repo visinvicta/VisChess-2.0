@@ -6,6 +6,9 @@ use App\Http\Requests\StoreNewFavoriteRequest;
 use Illuminate\Http\Request;
 use App\Models\Favorite; 
 use Illuminate\View\View;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class FavoriteController extends Controller
@@ -38,11 +41,11 @@ class FavoriteController extends Controller
         }
     }
 
-    public function index(): View {
-        $user = auth()->user();
-        $favorites = $user->favorites;
-        return view('favorites/index')->with('favorites', $favorites);
-    }
+    public function index()
+{
+    $favorites = Auth::user()->favorites()->paginate(8); 
+    return view('favorites/index', compact('favorites'));
+}
     
     public function show(Favorite $favorite): View {
         return view('favorites/show')->with('favorite', $favorite);

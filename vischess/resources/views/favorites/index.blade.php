@@ -39,6 +39,7 @@
         </div>
     </div>
 </div>
+{{ $favorites->links() }}
 
 <script src="{{ asset('/js/gamesindex.js') }}"></script>
 
