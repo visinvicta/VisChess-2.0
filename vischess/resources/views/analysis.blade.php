@@ -12,8 +12,10 @@
             <div id="analysisboard" style="width: 596px"></div>
 
             <div class="scrollbuttoncontainer">
-                <button id="leftscroll" class="btn btn-color-1"><-</button>
-                <button id="rightscroll" class="btn btn-color-2">-></button>
+                <button id="firstmove" class="btn btn-color-5"><<-</button>
+                <button id="previousmove" class="btn btn-color-5"><-</button>
+                <button id="nextmove" class="btn btn-color-5">-></button>
+                <button id="lastmove" class="btn btn-color-5">->></button>
                 <button id="flipboard" class="btn btn-color-5">Flip</button>
             </div>
             

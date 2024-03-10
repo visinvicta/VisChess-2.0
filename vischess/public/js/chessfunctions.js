@@ -33,43 +33,68 @@ function updateStatusNoPGN(status) {
 
 // Next move buttons + arrow keys
 
-const leftscroll = document.getElementById("leftscroll")
-const rightscroll = document.getElementById("rightscroll")
+const leftscroll = document.getElementById("previousmove");
+const rightscroll = document.getElementById("nextmove");
+const firstMoveButton = document.getElementById("firstmove");
+const lastMoveButton = document.getElementById("lastmove");
 
 leftscroll.addEventListener('click', function () {
   if (currentMove > 0) {
-    currentMove--
-    nextMove()
-    
-  };
-  console.log(`Game Move Count: ${currentMove}`)
-});
-
-rightscroll.addEventListener('click', function () {
-  if (currentMove < moveCount) {
-    currentMove++
-    nextMove()
-  }
-  console.log(`Game Move Count: ${currentMove}`)
-});
-
-document.addEventListener('keydown', function (event) {
-  if (event.key === 'ArrowLeft') {
-    if (currentMove > 0) {
-      currentMove--
-      nextMove()
-    };
-
-  } else if (event.key === 'ArrowRight') {
-    if (currentMove < moveCount) {
-      currentMove++;
-      nextMove();
-    }
+    currentMove--;
+    nextMove();
   }
   console.log(`Game Move Count: ${currentMove}`);
 });
 
+rightscroll.addEventListener('click', function () {
+  if (currentMove < moveCount) {
+    currentMove++;
+    nextMove();
+  }
+  console.log(`Game Move Count: ${currentMove}`);
+});
 
+firstMoveButton.addEventListener('click', function () {
+  currentMove = 0;
+  nextMove();
+  console.log(`Game Move Count: ${currentMove}`);
+});
+
+lastMoveButton.addEventListener('click', function () {
+  currentMove = moveCount;
+  nextMove();
+  console.log(`Game Move Count: ${currentMove}`);
+});
+
+document.addEventListener('keydown', function (event) {
+  switch (event.key) {
+    case 'ArrowLeft':
+      if (currentMove > 0) {
+        currentMove--;
+        nextMove();
+      }
+      event.preventDefault();
+      break;
+    case 'ArrowRight':
+      if (currentMove < moveCount) {
+        currentMove++;
+        nextMove();
+      }
+      event.preventDefault();
+      break;
+    case 'ArrowUp':
+      currentMove = 0;
+      nextMove();
+      event.preventDefault();
+      break;
+    case 'ArrowDown':
+      currentMove = moveCount;
+      nextMove();
+      event.preventDefault();
+      break;
+  }
+  console.log(`Game Move Count: ${currentMove}`);
+});
 const flipboard = document.getElementById("flipboard")
 flipboard.addEventListener("click", () => {
     board.flip()

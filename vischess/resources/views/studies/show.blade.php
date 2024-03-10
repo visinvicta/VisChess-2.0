@@ -16,7 +16,7 @@
             <div class="sidebar">
                 <h3>Chapters</h3>
                 <ul class="chapter-list">
-                    @forelse ($chapters as $chapter)
+                @forelse ($study->chapters as $chapter)
                     <li id="{{ $chapter->id}}">{{ $chapter->name }}</li>
                     @empty
                     <li>No chapters available</li>
@@ -29,11 +29,13 @@
                     <div class="study-chessboard">
                         <div id="studyboard" style="width: 600px"></div>
                         <div class="study-btn-container">
-                            <button id="leftscroll" class="btn btn-color-1"><-</button>
-                                    <button id="rightscroll" class="btn btn-color-2">-></button>
-                                    <button id="flipboard" class="btn btn-color-5">Flip</button>
-                                    <button id="toggle-pgn-btn" class="btn btn-color-5">PGN</button>
-                                    <button id="toggle-comments-btn" class="btn btn-color-5">Comments</button>
+                        <button id="firstmove" class="btn btn-color-5"><<</button>
+                            <button id="previousmove" class="btn btn-color-5"><</button>
+                            <button id="nextmove" class="btn btn-color-5">></button>
+                            <button id="lastmove" class="btn btn-color-5">>></button>
+                            <button id="flipboard" class="btn btn-color-5">Flip</button>
+                            <button id="toggle-pgn-btn" class="btn btn-color-5">PGN</button>
+                            <button id="toggle-comments-btn" class="btn btn-color-5">Comments</button>
                         </div>
                         <div class="toggle-pgn">
                             <label>PGN:</label>
@@ -43,12 +45,14 @@
                         <div class="toggle-comments">
                             <label>Comments:</label>
                             <div class="comment" id="comment" type="text">
-                                @foreach ($comments as $comment)
+                                @isset($study->chapter->comments)
+                                @foreach ($study->chapter->comments as $comment)
                                 <div class="move-{{ $comment->move_number }} chapter-{{ $comment->chapter_id }} comment-item" style="display: none;">
                                     {{ $comment->comment }}
                                     <a href="#" class="btn-delete-comment btn btn-color-4" data-comment-id="{{ $comment->id }}">Delete</a>
                                 </div>
                                 @endforeach
+                                @endif
                             </div>
                             <button id="addcomment" class="btn btn-color-5">Add comment</button>
                         </div>

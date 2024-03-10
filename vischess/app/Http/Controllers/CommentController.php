@@ -2,27 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\Comment;
 use App\Http\Requests\StoreNewCommentRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Comment;
 
+class CommentController extends Controller {
 
-class CommentController extends Controller
-{
-    public function store(StoreNewCommentRequest $request)
-    {
+    public function store(StoreNewCommentRequest $request): JsonResponse {
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
         Comment::create($validatedData);
-
         return response()->json(['message' => 'Comment created successfully'], 201);
     }
 
-    public function destroy($id)
-    {
+    public function destroy(Comment $comment): JsonResponse {
         try {
-            $comment = Comment::findOrFail($id);
             $comment->delete();
             $message = 'Comment deleted successfully';
             return response()->json(['message' => $message]);

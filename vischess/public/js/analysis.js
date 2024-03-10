@@ -18,7 +18,7 @@ let storePGN = ''
 function nextMove() {
   let newPGN = gamePGN.slice(0, currentMove).join(' ')     
   game.load_pgn(newPGN)
-  updateStatusNoPGN()
+  updateStatusAll()
 }
 
 const importField = document.getElementById("importpgn");

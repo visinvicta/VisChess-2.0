@@ -2,34 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreNewSessionRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SessionsController extends Controller
 {
-    public function destroy() {
+    public function destroy(): RedirectResponse {
         auth()->logout();
 
         return redirect('/');
     }
 
-    public function store() {
-
-        $requestData = request()->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required']
-        ]);
-
-        if (auth()->attempt($requestData)) {
+    public function store(StoreNewSessionRequest $request) {
+        $credentials = $request->validated();
+        
+        if (auth()->attempt($credentials)) {
             return redirect('/')->with('success', 'Welcome back.');
-        };
-
+        }
+    
         return back()
-        ->withInput()
-        ->withErrors(['email' => 'Your provided credentials could not be verified.']);
+            ->withInput()
+            ->withErrors(['email' => 'Your provided credentials could not be verified.']);
+    } 
 
-    }   
-
-    public function create() {
+    public function create(): View {
         return view('/sessions/create');
     }
 }

@@ -430,7 +430,7 @@ label {
     /* Take up remaining space */
     margin-left: 5px;
     margin-right: 5px;
-    max-width: 550px;
+    max-width: 600px;
     /* Add some space between sidebar and main content */
 }
 
@@ -517,7 +517,7 @@ label {
 .study-btn-container {
     justify-content: center;
     display: flex;
-    max-width: 500px;
+    max-width: 600px;
 }
 
 .studypgn {

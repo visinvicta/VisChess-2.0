@@ -38,7 +38,7 @@ Route::middleware('web')->group(function () {
     Route::get('/games', [GameController::class, 'index']);
     Route::get('/game/{game}', [GameController::class, 'show']);
     Route::post('/games', [GameController::class, 'store']);
-    Route::delete('/games/{id}', [GameController::class, 'destroy']);
+    Route::delete('/games/{game}', [GameController::class, 'destroy']);
 
     //Favorites
 
@@ -46,7 +46,7 @@ Route::middleware('web')->group(function () {
         Route::get('/favorites', [FavoriteController::class, 'index']);
         Route::get('/favorite/{favorite}', [FavoriteController::class, 'show']);
         Route::post('/favorites', [FavoriteController::class, 'store']);
-        Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy']);
+        Route::delete('/favorites/{favorite}', [FavoriteController::class, 'destroy']);
     });
 
     //Studies
@@ -59,13 +59,13 @@ Route::middleware('web')->group(function () {
     //Chapters
 
     Route::post('/chapters', [ChapterController::class, 'store'])->name('chapters.store');
-    Route::get('/get-chapter-pgn/{chapterId}', [StudyController::class, 'getChapterPgn']);
-    Route::get('/get-chapter-comments/{chapterId}', [StudyController::class, 'getChapterComments']);
+    Route::get('/get-chapter-pgn/{chapter}', [StudyController::class, 'getChapterPgn']);
+    Route::get('/get-chapter-comments/{chapter}', [StudyController::class, 'getChapterComments']);
     
 
     //Comments
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
-    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
 
 
